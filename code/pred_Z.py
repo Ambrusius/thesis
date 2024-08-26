@@ -91,7 +91,7 @@ fpr, tpr, _ = roc_curve(y_test, y_pred_proba)
 roc_auc = auc(fpr, tpr)
 
 fig, ax = plt.subplots(figsize=(10, 6))
-ax.plot(fpr, tpr, label=f'ROC curve (area = {roc_auc:.2e})')
+ax.plot(fpr, tpr, label=f'ROC curve (area = {roc_auc:.2e}), accuracy: {np.mean(y_pred == y_test):.2f}')
 ax.plot([0, 1], [0, 1], 'k--')
 ax.set_xlim([0.0, 1.0])
 ax.set_ylim([0.0, 1.05])
@@ -139,8 +139,8 @@ roc_auc_small_full = auc(fpr_small_full, tpr_small_full)
 
 
 fig, ax = plt.subplots(figsize=(10, 6))
-ax.plot(fpr_full, tpr_full, label=f'ROC curve (area = {roc_auc_full:.2e})')
-ax.plot(fpr_small_full, tpr_small_full, label=f'ROC curve small model (area = {roc_auc_small_full:.2e})')
+ax.plot(fpr_full, tpr_full, label=f'ROC curve (area = {roc_auc_full:.2e}), accuracy: {np.mean(y_pred_full == full_labels):.2f}')
+ax.plot(fpr_small_full, tpr_small_full, label=f'ROC curve small model (area = {roc_auc_small_full:.2e}), accuracy: {np.mean(y_pred_small_full == full_labels):.2f}')
 ax.plot([0, 1], [0, 1], 'k--')
 ax.set_xlim([0.0, 1.0])
 ax.set_ylim([0.0, 1.05])
@@ -178,3 +178,6 @@ fig, ax = plt.subplots(figsize=(10, 6))
 lgb.plot_importance(full_model, ax=ax)
 fig.tight_layout()
 fig.savefig('/groups/hep/kinch/thesis/code/plots/feature_importance_full.png')
+
+# %%
+
