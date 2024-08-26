@@ -75,7 +75,7 @@ ax.set_ylabel('AUC')
 ax.set_title('Optimization Metric Across Trials')
 
 fig.tight_layout()
-fig.savefig('/groups/hep/kinch/thesis/code/plotsoptuna.png')
+fig.savefig('/groups/hep/kinch/thesis/code/plots/optuna.png')
 
 # %%
 
@@ -100,7 +100,7 @@ ax.set_ylabel('True Positive Rate')
 ax.set_title('Receiver Operating Characteristic')
 ax.legend(loc='lower right')
 fig.tight_layout()
-fig.savefig('/groups/hep/kinch/thesis/code/plotsroc_curve.png')
+fig.savefig('/groups/hep/kinch/thesis/code/plots/roc_curve.png')
 
 # %%
 fig, ax = plt.subplots(figsize=(10, 6))
@@ -109,7 +109,7 @@ ax.hist(y_pred_proba[y_test == 1], bins=100, alpha=0.5, label='True')
 ax.legend()
 ax.set_xlabel('Prediction Probability')
 fig.tight_layout()
-fig.savefig('/groups/hep/kinch/thesis/code/plotsprediction_probability.png')
+fig.savefig('/groups/hep/kinch/thesis/code/plots/prediction_probability.png')
 
 # %%
 # fit model to full data set
@@ -149,7 +149,7 @@ ax.set_ylabel('True Positive Rate')
 ax.set_title('Receiver Operating Characteristic')
 ax.legend(loc='lower right')
 fig.tight_layout()
-fig.savefig('/groups/hep/kinch/thesis/code/plotsroc_curve_full.png')
+fig.savefig('/groups/hep/kinch/thesis/code/plots/roc_curve_full.png')
 
 
 fig, ax = plt.subplots(figsize=(10, 6))
@@ -162,7 +162,7 @@ ax.set_yscale('log')
 ax.legend()
 ax.set_xlabel('Prediction Probability')
 fig.tight_layout()
-fig.savefig('/groups/hep/kinch/thesis/code/plotsprediction_probability_full.png')
+fig.savefig('/groups/hep/kinch/thesis/code/plots/prediction_probability_full.png')
 
 
 
@@ -172,9 +172,9 @@ print(sample.columns)
 fig, ax = plt.subplots(figsize=(10, 6))
 lgb.plot_importance(model, ax=ax)
 fig.tight_layout()
-fig.savefig('/groups/hep/kinch/thesis/code/plotsfeature_importance.png')
+fig.savefig('/groups/hep/kinch/thesis/code/plots/feature_importance.png')
 
 fig, ax = plt.subplots(figsize=(10, 6))
 lgb.plot_importance(full_model, ax=ax)
 fig.tight_layout()
-fig.savefig('/groups/hep/kinch/thesis/code/plotsfeature_importance_full.png')
+fig.savefig('/groups/hep/kinch/thesis/code/plots/feature_importance_full.png')
