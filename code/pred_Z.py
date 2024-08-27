@@ -103,12 +103,26 @@ fig.tight_layout()
 fig.savefig('/groups/hep/kinch/thesis/code/plots/roc_curve.png')
 
 # %%
-fig, ax = plt.subplots(figsize=(10, 6))
-ax.hist(y_pred_proba[y_test == 0], bins=100, alpha=0.5, label='False')
-ax.hist(y_pred_proba[y_test == 1], bins=100, alpha=0.5, label='True')
-ax.set_yscale('log')
-ax.legend()
-ax.set_xlabel('Prediction Probability')
+fig, ax = plt.subplots(2,1,figsize=(10, 6))
+ax[0].hist(y_pred_proba[y_test == 0], bins=100, alpha=0.5, label='False')
+ax[0].hist(y_pred_proba[y_test == 1], bins=100, alpha=0.5, label='True')
+
+# second plot with propotions
+cuts = np.linspace(0,1,100)
+accuracy_cut = []
+for c in cuts:
+    y_pred_cut = y_pred_proba[y_pred_proba > c]
+    y_test_cut = y_test[y_pred_proba > c]
+    accuracy_cut.append(np.sum(y_pred_cut == y_test_cut))
+
+ax[1].plot(cuts, accuracy_cut, label='Accuracy')
+ax[1].set_yscale('log')
+
+
+
+ax[0].set_yscale('log')
+ax[0].legend()
+ax[0].set_xlabel('Prediction Probability')
 fig.tight_layout()
 fig.savefig('/groups/hep/kinch/thesis/code/plots/prediction_probability.png')
 
@@ -182,3 +196,4 @@ fig.savefig('/groups/hep/kinch/thesis/code/plots/feature_importance_full.png')
 
 # %%
 
+# 
