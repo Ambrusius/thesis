@@ -1,5 +1,0 @@
-slurmstepd: error: StepId=47065837.batch exceeded memory limit (1244646400 > 1073741824), being killed
-slurmstepd: error: Exceeded job memory limit
-slurmstepd: error: *** JOB 47065837 ON node189 CANCELLED AT 2024-09-12T23:55:26 ***
-slurmstepd: error: StepId=47065837.batch exceeded memory limit (1244646400 > 1073741824), being killed
-slurmstepd: error: Exceeded job memory limit

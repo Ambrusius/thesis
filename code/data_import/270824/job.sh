@@ -2,6 +2,9 @@
 #SBATCH --job-name=muon_pairs          # Job name
 #SBATCH --partition=hep   # Partition name
 #SBATCH --output=muon_pairs_%j.out     # Standard output and error log
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=20
+
 
 # Load Conda (if required by the system)
 
