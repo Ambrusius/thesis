@@ -13,10 +13,10 @@ hep.style.use([hep.style.ATLAS])
 import matplotlib.pyplot as plt
 import time
 
+time0 = time.time()
+N = 1000
 
-N = 150
-
-path = '/groups/hep/kinch/H_Zg/samples_processed/HZeeg_ggF_MC_reduced_28august_131var.parquet'
+path = '/groups/hep/kinch/H_Zg/samples_processed/HZeeg_ggF_MC_reduced_28august_131var_small.parquet'
 
 # path = 'c:/Users/Jens/Documents/Github/Thesis/samples_processed/HZeeg_ggF_MC_reduced_28august_131var.parquet'
 
@@ -25,7 +25,7 @@ sample = pd.read_parquet(path)
 
 sample_small = sample.head(N)
 # print(f'current sample shape: {sample_small.shape}')
-
+load_time = time.time() - time0
 
 
 
@@ -67,7 +67,7 @@ def job(sample_small):
 
             mass = np.sqrt(2*sample_small.iloc[z]['el_pt'][i]*sample_small.iloc[z]['el_pt'][j]*(np.cosh(sample_small.iloc[z]['el_eta'][i]-sample_small.iloc[z]['el_eta'][j]) - np.cos(sample_small.iloc[z]['el_phi'][i]-sample_small.iloc[z]['el_phi'][j])))/1000.
             # deltaM=(np.abs(mass-mass_old)) order of 10^-7
-            if sample_small.iloc[z]["el_truthOrigin"][i] == 13 and sample_small.iloc[z]["el_truthOrigin"][j] == 13 and (sample_small.iloc[z]['truthel_pdgId'][i]*sample_small.iloc[z]['truthel_pdgId'][j] == -121):
+            if sample_small.iloc[z]["el_truthOrigin"][i] == 13 and sample_small.iloc[z]["el_truthOrigin"][j] == 13 and (sample_small.iloc[z]['el_charge'][i] != sample_small.iloc[z]['el_charge'][j]):
                 isZ = 1
                 # print(sample_small['truthel_pdgId'][z][i], sample_small['truthel_pdgId'][z][j])
             else:
@@ -243,6 +243,9 @@ def main(rank, ws):
 
 def worker(rank, ws):
     # print("Hello from rank", rank, "of", ws)
+    time_noting = 0
+    time_working = 0
+    time_append = 0
 
     # receive N events
     # process events
@@ -250,12 +253,27 @@ def worker(rank, ws):
     state = MPI.Status()
     worker_rows = []
     while True:
+        time_start_n = time.time()
         indexes = comm.recv(source=0, tag=MPI.ANY_TAG, status= state)
         if state.Get_tag() == 10:
             break
+        time_start_w = time.time()
         new_rows = job(sample_small.iloc[indexes])
+        time_append0 = time.time()
         worker_rows.extend(new_rows)
+        time_append1 = time.time()
+        time_end_w = time.time()
         comm.send(indexes, dest=0, tag=11)
+        time_end_n = time.time()
+        time_noting += time_end_n - time_start_n - (time_end_w - time_start_w)
+        time_working += time_end_w - time_start_w
+        time_append += time_append1 - time_append0
+    
+    df = pd.DataFrame(worker_rows)
+    filename = f'pair_gen_low_transfer_{rank}.parquet'
+    df.to_parquet(filename)
+    # print(df.shape)
+    print(f'Worker {rank} finished, time working: {time_working}, time noting: {time_noting}, time loading: {load_time}, time appending: {time_append}')
 
 
 

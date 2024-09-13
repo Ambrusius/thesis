@@ -1,0 +1,26 @@
+Lmod has detected the following error: The following module(s) are unknown:
+"anaconda"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "anaconda"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+
+CondaError: Run 'conda init' before 'conda activate'
+
+/groups/hep/kinch/miniconda3/bin/python
+/groups/hep/kinch/miniconda3/bin/mpiexec
+1
+2
+0
+Time taken: 1.0000555515289307 seconds, using 7 workers
+6
+7
+5
+3
+4
