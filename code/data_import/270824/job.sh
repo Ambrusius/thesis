@@ -3,7 +3,7 @@
 #SBATCH --partition=hep   # Partition name
 #SBATCH --output=muon_pairs_%j.out     # Standard output and error log
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=20
+#SBATCH --cpus-per-task=10
 
 
 # Load Conda (if required by the system)

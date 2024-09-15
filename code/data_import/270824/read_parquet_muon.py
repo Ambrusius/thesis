@@ -246,7 +246,7 @@ def main():
     path = '/groups/hep/kinch/H_Zg/samples_processed/HZmmg_ggF_MC_reduced_11sep_157var.parquet'
     sample = pd.read_parquet(path)
     
-    num_processes = 20  # Number of processes to use
+    num_processes = 10  # Number of processes to use
     chunks = split_dataframe(sample, num_processes)
 
     start_time = time.time()
