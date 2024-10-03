@@ -38,19 +38,59 @@ def GSF_Track_finder(row):
     return GSF_index, dR_min
 
 
+def Trigger(row):
+    # list of triggers:
+    # single electron triggers
+    # HLT_e26_lhtight_ivarloose_L1EM22VHI
+    # HLT_e60_lhmedium_L1EM22VHI
+    # HLT_e140_lhloose_L1EM22VHI
+    # HLT_e300_etcut_L1EM22VHI
+    # HLT_e140_lhloose_noringer_L1EM22VHI
+    # 
+    #  
+    # multi electron triggers
+    # HLT_2e17_lhvloose_L12EM15VHI
+    # HLT_2e24_lhvloose_L12EM20VH
+    # HLT_e24_lhvloose_2e12_lhvloose_L1EM20VH_3EM10VH 
+
+    trig = np.zeros(8, dtype=int)
+    if len(row['el_pt'][(row['el_pt'] > 26000) and (row['el_DFCommonElectronsLHLoose'])]) != 0:
+        trig[0] = 1
+    if len(row['el_pt'][(row['el_pt'] > 60000) and (row['el_DFCommonElectronsLHMedium'])]) != 0:
+        trig[1] = 1
+    if len(row['el_pt'][(row['el_pt'] > 140000) and (row['el_DFCommonElectronsLHLoose'])]) != 0:
+        trig[2] = 1
+    if len(row['el_pt'][(row['el_pt'] > 300000)]) != 0:
+        trig[3] = 1
+    if len(row['el_pt'][(row['el_pt'] > 140000)]) != 0:
+        trig[4] = 1
+    if len(row['el_pt'][( row['el_pt'] > 17000 ) and (row['el_DFCommonElectronsLHLoose'])]) > 1:
+        trig[5] = 1
+    if len(row['el_pt'][( row['el_pt'] > 24000 ) and (row['el_DFCommonElectronsLHLoose'])]) > 1:
+        trig[6] = 1
+    if len(row['el_pt'][( row['el_pt'] > 24000 ) and (row['el_DFCommonElectronsLHLoose'])]) > 1:
+        trig[7] = 1
+    
+    return trig
+
+
 # Worker function to process a chunk of data
 def process_chunk(sample_chunk, chunk_id):
     new_rows = []
     for z in range(len(sample_chunk['el_truthOrigin'])):
         row = sample_chunk.iloc[z]
         num_electrons = len(row["el_truthOrigin"])
-
+        
         # Find the best match between electrons and GSF tracks
         GSF_index, GSF_dR = GSF_Track_finder(row)
 
         # Loop over all electron pairs
         for i in range(num_electrons):
+            if row['el_pt'][i] < 9000:  # Skip electrons with pT < 9 GeV
+                continue
             for j in range(i + 1, num_electrons):
+                if row['el_pt'][j] < 9000: # Skip electrons with pT < 9 GeV
+                    continue
                 mass = np.sqrt(
                     2 * row['el_pt'][i] * row['el_pt'][j] *
                     (np.cosh(row['el_eta'][i] - row['el_eta'][j]) - np.cos(row['el_phi'][i] - row['el_phi'][j]))
@@ -167,7 +207,7 @@ if __name__ == "__main__":
         new_df = parallel_process(sample_small)
 
         # Save the result to a parquet file
-        save_path = path + f'/ttbar_pairs{i}.parquet'
+        save_path = file_path + f'/ttbar_pairs{i}.parquet'
         new_df.to_parquet(save_path)
         i += 1
         print(f"Saved {len(new_df)} pairs to {save_path}")
