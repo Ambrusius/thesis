@@ -1,0 +1,14 @@
+/groups/hep/kinch/miniconda3/bin/python
+/groups/hep/kinch/miniconda3/bin/mpiexec
+slurmstepd: error: StepId=47061816.0 exceeded memory limit (45989240832 > 34359738368), being killed
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: *** STEP 47061816.0 ON node189 CANCELLED AT 2024-09-12T14:38:22 ***
+slurmstepd: error: StepId=47061816.0 exceeded memory limit (45989240832 > 34359738368), being killed
+slurmstepd: error: Exceeded job memory limit
+srun: error: node189: task 0: Killed
+srun: Terminating StepId=47061816.0
+srun: Force Terminated StepId=47061816.0
+[mpiexec@node189.cluster] control_cb (mpiexec/pmiserv_cb.c:280): assert (!closed) failed
+[mpiexec@node189.cluster] HYDT_dmxu_poll_wait_for_event (lib/tools/demux/demux_poll.c:76): callback returned error status
+[mpiexec@node189.cluster] HYD_pmci_wait_for_completion (mpiexec/pmiserv_pmci.c:173): error waiting for event
+[mpiexec@node189.cluster] main (mpiexec/mpiexec.c:260): process manager error waiting for completion

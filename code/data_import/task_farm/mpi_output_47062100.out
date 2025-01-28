@@ -1,0 +1,13 @@
+/groups/hep/kinch/miniconda3/bin/python
+/groups/hep/kinch/miniconda3/bin/mpiexec
+Worker 3 finished, time working: 1315.0398075580597, time noting: 0.005199432373046875, time loading: 0.15196776390075684, time appending: 0.0008528232574462891
+Worker 4 finished, time working: 1332.1293451786041, time noting: 0.012042522430419922, time loading: 0.12861180305480957, time appending: 0.0005662441253662109
+Worker 2 finished, time working: 1332.5189516544342, time noting: 0.0074994564056396484, time loading: 0.12932562828063965, time appending: 0.0011477470397949219
+Hello from rank 0 of 4
+Starting main loop
+Sent initial jobs
+Sent all jobs
+Received all results
+count_ws: [0, 235, 275, 240, 250]
+Time taken: 1341.566000699997 seconds, using 4 workers
+Worker 1 finished, time working: 1341.5623695850372, time noting: 0.010120868682861328, time loading: 0.12981557846069336, time appending: 0.0005991458892822266
