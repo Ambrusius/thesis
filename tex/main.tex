@@ -1,11 +1,28 @@
-\documentclass[numbered]{tufte-book}
+\documentclass{tufte-book}
+\setcounter{tocdepth}{1} % Include up to subsections in the TOC
+
+
+% \usepackage[backend=biber, style=authoryear]{biblatex}
+% \addbibresource{thesisbib.bib} % Path to your .bib file
+
+% \bibliographystyle{plain}
+
 \usepackage{secnum}
 \usepackage{physics}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
+
+\usepackage{standalone}
 \usepackage{tikz}
+
+\usetikzlibrary{calc,positioning,shadows.blur,decorations.pathreplacing}
+
+\usetikzlibrary{shapes, arrows, positioning,calc,shadows.blur,decorations.pathreplacing}
+\usepackage{etoolbox}
+
 \usepackage{pgfplots}
+
 
 \title{lol, this is a title}
 \author{me}
@@ -19,6 +36,117 @@
 \newpage
 
 \tableofcontents
+
+\newpage
+
+
+
+
+
+
+
+\chapter{CERN}
+
+The European Organization for Nuclear Research, CERN, was initially a planned by 12 founding nations in 1953. It has since had its ranks bolstered by several new member nations, bringing the total up to 24.
+
+The goal of the organization is to provide a place where scientists from all over the world can come together to conduct research in the field of particle physics. CERN is most famous for the Large Hadron Collider (LHC), a particle accelerator that is the largest and most powerful in the world. The LHC is located in a 27 km long tunnel beneath the Franco-Swiss border near Geneva, Switzerland.
+
+The LHC has four main detectors; ATLAS, CMS, LHCb and ALICE. The ATLAS and CMS detectors are general purpose detectors, while LHCb is designed to study B-mesons and ALICE is designed to study heavy-ion collisions.
+
+In 2012 the ATLAS and CMS collaborations jointly announced the discovery of the Higgs Boson, a particle that had been theorized to exist since the 1960s. The discovery was made by analyzing data from the LHC.
+
+\section{ATLAS}
+A Toroidal LHC ApparatuS (ATLAS) is, as mentioned, a general purpose detector at the LHC.
+It is located 100m below the ground, formed around the LHC beam-pipe. It is 44 meters long and 25 meters in diameter and weighs 7000 tons.
+
+ATLAS contains layers of detectors, wrapped around the beam-pipe. These detectors are used to measure the properties of particles that are produced in the collisions in the LHC. The innermost layer is the pixel detector, followed by the semiconductor tracker (SCT) and the transition radiation tracker (TRT). These detectors are used to measure the trajectories of charged particles. The electromagnetic calorimeter (ECAL) and the hadronic calorimeter (HCAL) are used to measure the energy of particles. The muon spectrometer is used to measure the trajectories of muons. All this is built in a large magnet system, consisting of a central solenoid and two end-cap toroids. The magnet system is used to bend the paths of charged particles, using the shape of the curve for the measurement of their momentum. [https://atlas.cern/Discover/Detector]
+
+
+
+
+\chapter{Boosted Decision Trees}
+
+The selection that this thesis is attempting to beat is a simple single dimensional cuts-based selection. This selection looks at one parameter at a time and makes a decision to either discard or keep the event.
+
+We can consider a simple improvement of this single dimensional selection by using a multidimensional selection. Where we might look at several parameters where some might cause the event to be discarded, but others show the event is a very high probability of being signal.
+
+This is essentially a decision tree. A decision tree is an algorithm that makes a decision based on a series of questions. The key difference is that the choice is not discard or keep, but rather a choice of which question to ask next. The final decision is then made based on the answers to these questions.
+
+A decision tree is made up of leaves and nodes. A node is a question and a leaf is a decision. The tree starts with a single node, this is the root node. The root node asks a question and based on the answer the tree will move to one of the child-nodes. This process is repeated until a final decision is made.
+
+
+
+
+
+
+
+
+
+\chapter{The Standard Model}
+
+\begin{figure}
+    \centering
+    \input{figures/standardmodel.tex}
+    \caption{The Standard Model of particle physics.[https://texample.net/model-physics/]}
+\end{figure}
+
+\begin{figure}
+    \centering
+    hi, this is a test
+    \caption{test caption}
+\end{figure}
+
+hi\footnote{test of a footnote} more text after the footnote
+
+
+\chapter{The Higgs Boson (the decay we care about)}
+\section{Existing selection}
+\section{Proposed Model}
+\section{Parameters of Interest}
+\section{Data Pre-processing}
+
+\subsection{Existing framework}
+
+\section{Model Training}
+
+
+
+
+\section{Evaluation of model}
+Comparing the model with the existing, single dimensional cuts. Is simple enough for MC, but for data where we have no labels the process is more involved.
+
+To get an estimate for the quality of the selection we look at the invariant mass of the selected events, for the Z-decay we expect a peak at the Z-mass. Firstly, this peak should be higher allowing for more statistics. Secondly, we would prefer a better signal to background ratio.
+
+To get an estimate for the signal to background ratio we fit a function to the invariant mass that both contains a signal shape and a background shape. These shapes are then normalized to the number of both types of events.
+The function we fit is a Crystal Ball function (CB) for the signal convoluted with a Breit-Wigner distribution.
+For the background fit we use an exponential distribution.
+The CB function is a Gaussian function with a power-law tail on one side. % The function is defined as:
+% \begin{equation}
+% f(x;\alpha,n,\mu,\sigma) = N \cdot \begin{cases} \exp(-\frac{(x-\mu)^2}{2\sigma^2}), & \text{for } \frac{x-\mu}{\sigma} > -\alpha \\ A \cdot (B - \frac{x-\mu}{\sigma})^{-n}, & \text{for } \frac{x-\mu}{\sigma} \leq -\alpha \end{cases}
+% \label{eq:crystalball}
+% \end{equation}
+% \begin{verbatim}
+%     https://en.wikipedia.org/wiki/Crystal_Ball_function
+% \end{verbatim}
+And the Breit-Wigner distribution is a probability distribution function that describes the probability of a particle having a given energy.% The function is defined as:
+% \begin{equation}
+    % f(x; \mu, \Gamma) = \frac{1}{\pi} \frac{\Gamma}{(x-\mu)^2 + \Gamma^2}
+% \end{equation}
+
+With this fit we get an estimate for the purity of our selection.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -43,7 +171,55 @@ Meaning that it would be difficult to provide any information about which of the
 
 % something, something, proof of concept
 
+\section{BDT}
 
+
+
+\begin{figure}
+    \begin{tikzpicture}[
+        node distance=1.5cm,
+        decision/.style={rectangle, draw, fill=blue!20, text width=5em, text centered, rounded corners, minimum height=4em},
+        leaf/.style={rectangle, draw, fill=green!20, text width=5em, text centered, rounded corners, minimum height=4em},
+        arrow/.style={draw, -latex', thick}
+    ]
+    
+        % Nodes for the first tree
+        \node [decision] (tree1) {Tree 1};
+        \node [leaf, below left=1cm of tree1] (leaf1) {Prediction 1};
+        \node [leaf, below right=1cm of tree1] (leaf2) {Prediction 2};
+        
+        % Arrows for the first tree
+        \draw [arrow] (tree1) -- (leaf1);
+        \draw [arrow] (tree1) -- (leaf2);
+        
+        % Nodes for the second tree
+        \node [decision, below=3cm of tree1] (tree2) {Tree 2};
+        \node [leaf, below left=1cm of tree2] (leaf3) {Prediction 3};
+        \node [leaf, below right=1cm of tree2] (leaf4) {Prediction 4};
+        
+        % Arrows for the second tree
+        \draw [arrow] (tree2) -- (leaf3);
+        \draw [arrow] (tree2) -- (leaf4);
+        
+        % Nodes for the third tree
+        \node [decision, below=3cm of tree2] (tree3) {Tree 3};
+        \node [leaf, below left=1cm of tree3] (leaf5) {Prediction 5};
+        \node [leaf, below right=1cm of tree3] (leaf6) {Prediction 6};
+        
+        % Arrows for the third tree
+        \draw [arrow] (tree3) -- (leaf5);
+        \draw [arrow] (tree3) -- (leaf6);
+        
+        % Arrows between trees to indicate boosting
+        \draw [arrow, dashed] (tree1.south) -- ++(0,-0.5) -- ++(-1.5,0) -- ++(0,-1.5) -- (tree2.north);
+        \draw [arrow, dashed] (tree2.south) -- ++(0,-0.5) -- ++(-1.5,0) -- ++(0,-1.5) -- (tree3.north);
+        
+        % Final prediction
+        \node [leaf, below=3cm of tree3] (final) {Final Prediction};
+        \draw [arrow, dashed] (tree3.south) -- ++(0,-0.5) -- ++(-1.5,0) -- ++(0,-1.5) -- (final.north);
+    
+    \end{tikzpicture}
+\end{figure}
 
 
 
@@ -128,7 +304,7 @@ background is everything from the \(t\bar{t}\) sample.
 
 \section{Feasablility of opening cuts}
 
-\subsection{charge this is ugly, fix it}
+\subsection{Charge - this is ugly, fix it}
 For the version of the framework where we first, run the framework as normal and only if they fail run it again; removing cuts untill we have an event to save.
 
 In Ttbar data we see that the ratio of events saved with same charge to the total number of events saved is \(0.17450071447483853\). 
@@ -138,13 +314,7 @@ And for Zee data we see that the ratio of false sign meassurements are:
 
 yielding that only \(0.35265877647357798\%\) of \(Z\to ee\) events saved with this modified framework are false sign events.
 
-The conclusion is that opening charge, while an easy cut to open, is not a cut where there is a lot of potential gain.
-
-
-
-
-
-
+The conclusion is that opening charge, while an easy cut to open, is not a cut where there is a lot of potential gain. 
 
 
 
